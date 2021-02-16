@@ -91,13 +91,22 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'topalatdb',
         'USER': 'topalatdbuser',
         'PASSWORD': 'secret',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     },
+
+    # "default": {
+    #     "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+    #     "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+    #     "USER": os.environ.get("SQL_USER", "user"),
+    #     "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+    #     "HOST": os.environ.get("SQL_HOST", "localhost"),
+    #     "PORT": os.environ.get("SQL_PORT", "5432"),
+    # }
 }
 
 # Password validation
@@ -198,4 +207,22 @@ CORS_ALLOW_CREDENTIALS = True
 # EMAIL_HOST_PASSWORD = 'mys3cr3tp4ssw0rd'
 # EMAIL_USE_TLS = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+###############
+# EMAIL SETUP #
+###############
+EMAIL_HOST = os.environ.get("EMAIL_HOST", 'smtp.gmail.com')
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 587)
+EMAIL_USE_TLS = bool(int(os.environ.get("EMAIL_USE_TLS", True)))
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", 'topalatonline@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", '12345678=Aa')
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", 'django.core.mail.backends.smtp.EmailBackend')
+
+
+########################
+# OTHER EMAIL SETTINGS #
+# https://www.geeksforgeeks.org/setup-sending-email-in-django-project/ #
+########################
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "topalatonline@gmail.com")
+SUPPORT_EMAIL = os.environ.get("SUPPORT_EMAIL", "topalatonline@gmail.com")
+DEFAULT_FROM_EMAIL = ADMIN_EMAIL
+SERVER_EMAIL = ADMIN_EMAIL

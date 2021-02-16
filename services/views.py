@@ -4,26 +4,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticate
 from core.permissions import IsSuperUserOrReadOnly
 from core.views import MyListCreateAPIView, MyRetrieveUpdateDestroyAPIView, MyListAPIView
 from .renderers import ServiceJSONRenderer
-from .models import TransactionLog, ServiceCategory, ServiceProvider
-from .serializers import TransactionLogSerializer, ServiceCategorySerializer, ServiceProviderSerializer
-
-
-# Create your views here.
-
-class ServiceCategoryFilter(filters.FilterSet):
-    name = filters.CharFilter(field_name='name', lookup_expr='icontains')
-
-    class Meta:
-        model = ServiceCategory
-        fields = ('name',)
-
-
-class ServiceProviderFilter(filters.FilterSet):
-    name = filters.CharFilter(field_name='name', lookup_expr='icontains')
-
-    class Meta:
-        model = ServiceProvider
-        fields = ('name',)
+from .models import TransactionLog
+from .serializers import TransactionLogSerializer
 
 
 class TransactionLogFilter(filters.FilterSet):
@@ -32,65 +14,6 @@ class TransactionLogFilter(filters.FilterSet):
     class Meta:
         model = TransactionLog
         fields = ('reference',)
-
-
-class ServiceCategoryList(MyListCreateAPIView):
-    queryset = ServiceCategory.objects.all()
-    print('Queryset: ', queryset)
-    serializer_class = ServiceCategorySerializer
-    permission_classes = (AllowAny,)
-    name = 'service-category-list'
-    filterset_class = ServiceCategoryFilter
-    # ordering_fields = ('name',)
-    lookup_field = 'pk'
-    ordering = ('name',)
-    search_fields = ('name',)
-    renderer_classes = (ServiceJSONRenderer,)
-    # permission_classes = (
-    #     # IsSuperUserOrReadOnly,
-    #     # IsAuthenticated,
-    # )
-
-
-class ServiceCategoryDetail(MyRetrieveUpdateDestroyAPIView):
-    queryset = ServiceCategory.objects.all()
-    serializer_class = ServiceCategorySerializer
-    # lookup_field = 'slug'
-    lookup_field = 'code_name'
-    permission_classes = (AllowAny,)
-    name = 'service-category-detail'
-    # permission_classes = (
-    #     IsSuperUserOrReadOnly,
-    # )
-
-
-class ServiceProviderList(MyListCreateAPIView):
-    queryset = ServiceProvider.objects.all()
-    print('Queryset: ', queryset)
-    serializer_class = ServiceProviderSerializer
-    permission_classes = (AllowAny,)
-    name = 'service-provider-list'
-    filterset_class = ServiceProviderFilter
-    # ordering_fields = ('name',)
-    # lookup_field = 'pk'
-    ordering = ('name',)
-    search_fields = ('name',)
-    renderer_classes = (ServiceJSONRenderer,)
-    # permission_classes = (
-    #     IsSuperUserOrReadOnly,
-    # )
-
-
-class ServiceProviderDetail(MyRetrieveUpdateDestroyAPIView):
-    queryset = ServiceProvider.objects.all()
-    serializer_class = ServiceProviderSerializer
-    # lookup_field = 'slug'
-    lookup_field = 'code_name'
-    permission_classes = (AllowAny,)
-    name = 'service-provider-detail'
-    # permission_classes = (
-    #     IsSuperUserOrReadOnly,
-    # )
 
 
 class TransactionLogList(MyListCreateAPIView):

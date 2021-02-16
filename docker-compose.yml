@@ -1,10 +1,10 @@
-version: "3"
+version: "3.8"
 
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
-#    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+#    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: topalat_rest
 
     volumes:
@@ -16,17 +16,16 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:12.0-alpine
+    image: postgres:13.0-alpine
+    restart: always
     volumes:
     - postgres_data:/var/lib/postgresql/data/
     ports:
-      - "5432:5432"  # pointing port 5435 from our environment to postgre default port 5432 in docker
+      - "5435:5432"  # pointing port 5435 from our environment to postgre default port 5432 in docker
     environment:
-      POSTGRES_DB: 'topalatdb'
-      POSTGRES_USER: 'topalatdbuser'
-      POSTGRES_PASSWORD: 'secret'
-      POSTGRES_PORT: 5432
-
-
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+#      - POSTGRES_PORT=5432
 volumes:
   postgres_data:

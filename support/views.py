@@ -2,6 +2,7 @@
 # from rest_framework import status
 from rest_framework.generics import CreateAPIView
 # from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from support.models import Contact
 from support.serializers import ContactSerializer
@@ -12,7 +13,7 @@ class ContactView(CreateAPIView):
     queryset = Contact.objects.all()
     print('Contact Queryset: ', queryset)
     serializer_class = ContactSerializer
-    # permission_classes = (AllowAny,)
+    permission_classes = (AllowAny,)
     name = 'support-contact-list'
     # filterset_class = TransactionLogFilter
     # ordering_fields = ('name',)
