@@ -104,17 +104,17 @@ DATABASES = {
     #     'PORT': '5432',
     # },
 
-    # "default": {
-    #     "ENGINE": config("SQL_ENGINE", default="django.db.backends.sqlite3"),
-    #     "NAME": config("SQL_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
-    #     "USER": config("SQL_USER", default="user"),
-    #     "PASSWORD": config("SQL_PASSWORD", default="password"),
-    #     "HOST": config("SQL_HOST", default="localhost"),
-    #     "PORT": config("SQL_PORT", default="5432"),
-    # }
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    "default": {
+        "ENGINE": config("SQL_ENGINE", default="django.db.backends.sqlite3"),
+        "NAME": config("SQL_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": config("SQL_USER", default="user"),
+        "PASSWORD": config("SQL_PASSWORD", default="password"),
+        "HOST": config("SQL_HOST", default="localhost"),
+        "PORT": config("SQL_PORT", default="5432"),
+    }
+    # 'default': dj_database_url.config(
+    #     default=config('DATABASE_URL')
+    # )
 }
 
 # Password validation
